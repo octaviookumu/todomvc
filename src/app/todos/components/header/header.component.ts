@@ -10,9 +10,6 @@ export class HeaderComponent implements OnInit {
   text: string = '';
 
   constructor(private todoService: TodosService) {
-    this.todoService.todos$.subscribe((todos) => {
-      console.log('Deez todos', todos);
-    });
   }
 
   ngOnInit(): void {}
@@ -21,14 +18,14 @@ export class HeaderComponent implements OnInit {
     const target = event.target as HTMLInputElement;
     this.text = target.value;
     if (this.text) {
-      console.log(this.text);
+      // console.log(this.text);
     }
   }
 
   addTodo() {
     if (this.text) {
-      console.log('Add todo', this.text);
       this.todoService.addTodo(this.text);
+      this.text = ''
     }
   }
 }

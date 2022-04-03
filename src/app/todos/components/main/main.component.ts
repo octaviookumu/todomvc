@@ -12,9 +12,11 @@ import { TodoInterface } from '../../types/todo.interface';
 export class MainComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
   noTodoClass$!: Observable<boolean>;
+  isAllTodosSelected$!: Observable<boolean>;
 
   constructor(private todosService: TodosService) {
     this.checkIfNoTodos();
+    this.checkIfAllTodosSelected();
     this.fetchTodos();
   }
 
@@ -23,6 +25,12 @@ export class MainComponent implements OnInit {
   checkIfNoTodos() {
     this.noTodoClass$ = this.todosService.todos$.pipe(
       map((todos) => todos.length === 0)
+    );
+  }
+
+  checkIfAllTodosSelected() {
+    this.isAllTodosSelected$ = this.todosService.todos$.pipe(
+      map((todos) => todos.every((todo) => todo.isCompleted))
     );
   }
 
@@ -39,5 +47,10 @@ export class MainComponent implements OnInit {
         }
       })
     );
+  }
+
+  toggleAllTodos(event: Event) {
+    const target = event.target as HTMLInputElement
+    this.todosService.toggleAll(target.checked)
   }
 }

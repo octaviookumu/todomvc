@@ -1,5 +1,6 @@
-<ul class="todo-list" >
-    <li *ngFor="let todo of visibleTodos$ | async" >
-        {{ todo.text }}
-    </li>
-</ul>
+<section class="main" [ngClass]="{ hidden: noTodoClass$ | async }">
+  <ul class="todo-list">
+    <app-todo *ngFor="let todo of visibleTodos$ | async" [todo]="todo">
+    </app-todo>
+  </ul>
+</section>

@@ -4,6 +4,7 @@ import { TodosComponent } from './components/todos/todos.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
+import { TodoComponent } from './components/todo/todo.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
   declarations: [
     TodosComponent,
     HeaderComponent,
-    MainComponent
+    MainComponent,
+    TodoComponent
   ],
   imports: [
     CommonModule,

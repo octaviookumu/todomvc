@@ -11,12 +11,20 @@ import { TodoInterface } from '../../types/todo.interface';
 })
 export class MainComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
+  noTodoClass$!: Observable<boolean>;
 
   constructor(private todosService: TodosService) {
+    this.checkIfNoTodos();
     this.fetchTodos();
   }
 
   ngOnInit(): void {}
+
+  checkIfNoTodos() {
+    this.noTodoClass$ = this.todosService.todos$.pipe(
+      map((todos) => todos.length === 0)
+    );
+  }
 
   fetchTodos() {
     this.visibleTodos$ = this.todosService.todos$.pipe(

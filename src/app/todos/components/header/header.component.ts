@@ -9,8 +9,7 @@ import { TodosService } from '../../services/todos.service';
 export class HeaderComponent implements OnInit {
   text: string = '';
 
-  constructor(private todoService: TodosService) {
-  }
+  constructor(private todoService: TodosService) {}
 
   ngOnInit(): void {}
 
@@ -25,7 +24,7 @@ export class HeaderComponent implements OnInit {
   addTodo() {
     if (this.text) {
       this.todoService.addTodo(this.text);
-      this.text = ''
+      this.text = '';
     }
   }
 }

@@ -4,14 +4,12 @@ import { TodoInterface } from '../../types/todo.interface';
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
+  styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
-  @Input('todo') todoProps!: TodoInterface
+  @Input('todo') todoProps!: TodoInterface;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

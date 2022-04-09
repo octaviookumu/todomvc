@@ -50,7 +50,7 @@ export class MainComponent implements OnInit {
   }
 
   toggleAllTodos(event: Event) {
-    const target = event.target as HTMLInputElement
-    this.todosService.toggleAll(target.checked)
+    const target = event.target as HTMLInputElement;
+    this.todosService.toggleAll(target.checked);
   }
 }

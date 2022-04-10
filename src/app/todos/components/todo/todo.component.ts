@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TodosService } from '../../services/todos.service';
 import { TodoInterface } from '../../types/todo.interface';
 
 @Component({
@@ -8,8 +9,38 @@ import { TodoInterface } from '../../types/todo.interface';
 })
 export class TodoComponent implements OnInit {
   @Input('todo') todoProps!: TodoInterface;
+  @Input('isEditing') isEditingProps!: boolean;
+  @Output('setEditingId') setEditingIdEvent: EventEmitter<string | null> =
+    new EventEmitter();
+  editingText: string = '';
 
-  constructor() {}
+  constructor(private todosService: TodosService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.editingText = this.todoProps.text;
+  }
+
+  setTodoInEditMode() {
+    this.setEditingIdEvent.emit(this.todoProps.id);
+  }
+
+  removeTodo() {
+    this.todosService.removeTodo(this.todoProps.id);
+  }
+
+  toggleTodo() {
+    this.todosService.toggleTodo(this.todoProps.id);
+  }
+
+  changeText(event: Event) {
+    console.log('change text');
+    const value = (event.target as HTMLInputElement).value;
+    this.editingText = value;
+  }
+
+  changeTodo() {
+    console.log('change todo');
+    this.todosService.changeTodo(this.todoProps.id, this.editingText);
+    this.setEditingIdEvent.emit(null);
+  }
 }

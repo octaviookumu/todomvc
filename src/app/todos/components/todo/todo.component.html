@@ -3,21 +3,19 @@
     <input
       class="toggle"
       type="checkbox"
-      name="check"
-      id="check"
       [checked]="todoProps.isCompleted"
       (change)="toggleTodo()"
     />
-    <label for="check" (dblclick)="setTodoInEditMode()">{{todoProps.text}}</label>
+    <label (dblclick)="setTodoInEditMode()">{{ todoProps.text }}</label>
     <button class="destroy" (click)="removeTodo()"></button>
   </div>
   <ng-container *ngIf="isEditingProps">
     <input
-      type="text"
       class="edit"
       [value]="editingText"
       (keyup)="changeText($event)"
       (keyup.enter)="changeTodo()"
+      #textInput
     />
   </ng-container>
 </li>

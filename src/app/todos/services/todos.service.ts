@@ -50,8 +50,10 @@ export class TodosService {
   }
 
   removeTodo(id: string) {
-    const updatedTodos = this.todos$.getValue().filter((todo => todo.id !== id))
-    this.todos$.next(updatedTodos)
+    const updatedTodos = this.todos$
+      .getValue()
+      .filter((todo) => todo.id !== id);
+    this.todos$.next(updatedTodos);
   }
 
   toggleTodo(id: string) {
@@ -59,11 +61,11 @@ export class TodosService {
       if (todo.id === id) {
         return {
           ...todo,
-        isCompleted: !todo.isCompleted
-        }
+          isCompleted: !todo.isCompleted,
+        };
       }
       return todo;
-    })
-    this.todos$.next(updatedTodos)
+    });
+    this.todos$.next(updatedTodos);
   }
 }

@@ -35,6 +35,7 @@ export class MainComponent implements OnInit {
     );
   }
 
+  // combine streams using combineLatestWith
   fetchTodos() {
     this.visibleTodos$ = this.todosService.todos$.pipe(
       combineLatestWith(this.todosService.filter$),

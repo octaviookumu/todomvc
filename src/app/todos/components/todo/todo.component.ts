@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { TodosService } from '../../services/todos.service';
 import { TodoInterface } from '../../types/todo.interface';
 
@@ -12,7 +22,7 @@ export class TodoComponent implements OnInit, OnChanges {
   @Input('isEditing') isEditingProps!: boolean;
   @Output('setEditingId') setEditingIdEvent: EventEmitter<string | null> =
     new EventEmitter();
-  
+
   editingText: string = '';
   @ViewChild('textInput') textInput!: ElementRef;
 
@@ -22,8 +32,15 @@ export class TodoComponent implements OnInit, OnChanges {
     this.editingText = this.todoProps.text;
   }
 
+  // runs before element renders
+  // input is inside ngIf
   ngOnChanges(changes: SimpleChanges): void {
-      console.log("changes", changes)
+    if (changes['isEditingProps'].currentValue) {
+      // to make this after rendering
+      setTimeout(() => {
+        this.textInput.nativeElement.focus();
+      }, 0);
+    }
   }
 
   setTodoInEditMode() {
@@ -39,13 +56,11 @@ export class TodoComponent implements OnInit, OnChanges {
   }
 
   changeText(event: Event) {
-    console.log('change text');
     const value = (event.target as HTMLInputElement).value;
     this.editingText = value;
   }
 
   changeTodo() {
-    console.log('change todo');
     this.todosService.changeTodo(this.todoProps.id, this.editingText);
     this.setEditingIdEvent.emit(null);
   }

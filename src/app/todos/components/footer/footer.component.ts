@@ -24,12 +24,14 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // check if no todos
   checkIfNoTodos() {
     this.noTodosClass$ = this.todosService.todos$.pipe(
       map((todos) => todos.length === 0)
     );
   }
 
+  // check active todos
   checkActiveTodos() {
     this.activeCount$ = this.todosService.todos$.pipe(
       map((todos) => todos.filter((todo) => !todo.isCompleted).length)

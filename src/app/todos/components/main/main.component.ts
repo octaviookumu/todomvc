@@ -24,21 +24,21 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {}
 
   checkIfNoTodos() {
-    this.noTodoClass$ = this.todosService.todos$.pipe(
-      map((todos) => todos.length === 0)
-    );
+    this.noTodoClass$ = this.todosService
+      .getTodos()
+      .pipe(map((todos) => todos.length === 0));
   }
 
   checkIfAllTodosSelected() {
-    this.isAllTodosSelected$ = this.todosService.todos$.pipe(
-      map((todos) => todos.every((todo) => todo.isCompleted))
-    );
+    this.isAllTodosSelected$ = this.todosService
+      .getTodos()
+      .pipe(map((todos) => todos.every((todo) => todo.isCompleted)));
   }
 
   // combine streams using combineLatestWith
   fetchTodos() {
-    this.visibleTodos$ = this.todosService.todos$.pipe(
-      combineLatestWith(this.todosService.filter$),
+    this.visibleTodos$ = this.todosService.getTodos().pipe(
+      combineLatestWith(this.todosService.getFilter()),
       map(([todos, filter]: [TodoInterface[], FilterEnum]) => {
         if (filter === FilterEnum.active) {
           return todos.filter((todo) => !todo.isCompleted);

@@ -19,21 +19,21 @@ export class FooterComponent implements OnInit {
     this.checkIfNoTodos();
     this.checkActiveTodos();
     this.getItemsLeftText();
-    this.filter$ = this.todosService.filter$;
+    this.filter$ = this.todosService.getFilter();
   }
 
   ngOnInit(): void {}
 
   // check if no todos
   checkIfNoTodos() {
-    this.noTodosClass$ = this.todosService.todos$.pipe(
+    this.noTodosClass$ = this.todosService.getTodos().pipe(
       map((todos) => todos.length === 0)
     );
   }
 
   // check active todos
   checkActiveTodos() {
-    this.activeCount$ = this.todosService.todos$.pipe(
+    this.activeCount$ = this.todosService.getTodos().pipe(
       map((todos) => todos.filter((todo) => !todo.isCompleted).length)
     );
   }

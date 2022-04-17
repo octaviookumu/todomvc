@@ -7,10 +7,18 @@ import { TodoInterface } from '../types/todo.interface';
   providedIn: 'root',
 })
 export class TodosService {
-  todos$ = new BehaviorSubject<TodoInterface[]>([]);
-  filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
+  private todos$ = new BehaviorSubject<TodoInterface[]>([]);
+  private filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
 
   constructor() {}
+
+  getTodos() {
+    return this.todos$.asObservable();
+  }
+
+  getFilter() {
+    return this.filter$.asObservable();
+  }
 
   addTodo(text: string) {
     const newTodo: TodoInterface = {
